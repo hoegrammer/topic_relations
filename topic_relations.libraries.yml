@@ -1,0 +1,4 @@
+relations:
+  css:
+    theme:
+      css/relations.css: {}

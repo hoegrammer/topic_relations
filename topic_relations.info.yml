@@ -1,0 +1,7 @@
+name: Topic Relations
+description: When A is parent of B, this makes B child of A (and vice versa), and when X is sibling of Y, this makes Y sibling of X.
+package: Custom
+type: module
+version: 1.0
+core: 8.x
+project: "topic_relations"

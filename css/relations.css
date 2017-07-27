@@ -1,0 +1,12 @@
+/* Do not show expandable "relations" section when editing a term.
+   We are not using this default functionality */
+.taxonomy-term-form #edit-relations {
+  display: none;
+}
+
+/* Another interface for the built-in relation functionality
+   is drag-and-drop on the vocabulary pages. This removes the
+   dragability and hides the edit and cancel buttons and the help text */
+#taxonomy .tabledrag-handle, #taxonomy-overview-terms #edit-actions, #replacement_taxonomy_help ~ p {
+  display: none;
+}

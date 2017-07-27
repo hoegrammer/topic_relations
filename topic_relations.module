@@ -1,0 +1,40 @@
+<?php
+
+
+require_once "src/TopicRelations.php";
+use Drupal\topic_relations\TopicRelations;
+
+// Implements hook_taxonomy_term_insert.
+function topic_relations_taxonomy_term_insert($term) {
+  $tr = new TopicRelations();
+  $tr->onInsert($term);
+}
+
+// Implements hook_taxonomy_term_update.
+function topic_relations_taxonomy_term_update($term) {
+  $tr = new TopicRelations();
+  $tr->onUpdate($term);
+}
+
+// Attaches css to the relevant pages so that the built-in taxonomy
+// hierarchy functionality is not visible
+function topic_relations_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'topic_relations/relations';
+}
+
+// Causes our help text to generated before the standard taxonomy help.
+// This allows us to use the sibling selector in the css to remove the
+// standard help text.
+function topic_relations_module_implements_alter(&$implementations, $hook) {
+ if ($hook == 'help') {
+    $implementations = array('topic_relations' => $implementations['topic_relations']) + $implementations;
+  }
+}
+
+// Alters the help text so that it does not say the stuff
+// relating to the built-in hierarchy functionality
+function topic_relations_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  if  ($route_name == "entity.taxonomy_vocabulary.overview_form") {
+    return "<p id='replacement_taxonomy_help'>The default functionality for arranging terms into a hierarchy has been overridden by the custom module 'Topic Relations'. </p>";
+  }
+}
